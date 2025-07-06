@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jakarta Graduation Photography - Professional Photo Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .location {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            color: white;
+            font-weight: bold;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+
+        .price-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .price-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #4a5568;
+            position: relative;
+        }
+
+        .price-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .price-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .price-card.popular {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .price-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #667eea;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .package-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #4a5568;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .price-details {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .price-details li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .price-details li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .additional-services {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .additional-services h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #4a5568;
+        }
+
+        .additional-services ul {
+            list-style: none;
+        }
+
+        .additional-services li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .additional-services li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .terms {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .terms h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #4a5568;
+        }
+
+        .terms ul {
+            list-style: none;
+        }
+
+        .terms li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .terms li::before {
+            content: '★';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .contact-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-section h3 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Jakarta Graduation Photography</h1>
+            <p>Capture Your Special Moment with Professional Photography</p>
+            <div class="location">📍 Jakarta, Indonesia</div>
+        </div>
+
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f0f0f0'/%3E%3Ctext x='200' y='200' font-family='Arial' font-size='16' text-anchor='middle' fill='%23666'%3EGraduation Portrait 1%3C/text%3E%3C/svg%3E" alt="Graduation Portrait 1">
+                <div class="overlay">
+                    <h3>Elegant Graduation Portrait</h3>
+                    <p>Professional outdoor graduation photography with natural lighting</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23e8f4f8'/%3E%3Ctext x='200' y='200' font-family='Arial' font-size='16' text-anchor='middle' fill='%23666'%3EGraduation Portrait 2%3C/text%3E%3C/svg%3E" alt="Graduation Portrait 2">
+                <div class="overlay">
+                    <h3>Creative Graduation Shoot</h3>
+                    <p>Artistic graduation photography with creative poses and composition</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="price-section">
+            <h2>Photography Packages</h2>
+            
+            <div class="price-grid">
+                <div class="price-card">
+                    <div class="package-name">TOGA 1</div>
+                    <div class="price">IDR 370K</div>
+                    <ul class="price-details">
+                        <li>1 Client</li>
+                        <li>Family & Friends</li>
+                        <li>Unlimited Shoot</li>
+                        <li>25 Edited Photos</li>
+                        <li>60 Minute Session</li>
+                        <li>All Files on Google Drive</li>
+                    </ul>
+                </div>
+
+                <div class="price-card popular">
+                    <div class="package-name">TOGA 2</div>
+                    <div class="price">IDR 500K</div>
+                    <ul class="price-details">
+                        <li>1 Client</li>
+                        <li>Family & Friends</li>
+                        <li>Unlimited Shoot</li>
+                        <li>40 Edited Photos</li>
+                        <li>90 Minute Session</li>
+                        <li>All Files on Google Drive</li>
+                    </ul>
+                </div>
+
+                <div class="price-card">
+                    <div class="package-name">PHOTO & REELS</div>
+                    <div class="price">IDR 800K</div>
+                    <ul class="price-details">
+                        <li>1 Client</li>
+                        <li>Family & Friends</li>
+                        <li>Unlimited Shoot</li>
+                        <li>25 Edited Photos</li>
+                        <li>120 Minute Session</li>
+                        <li>All Files on Google Drive</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="additional-services">
+                <h3>Additional Services</h3>
+                <ul>
+                    <li>Story Book (20x30) - IDR 600K</li>
+                    <li>Video Reels - IDR 500K</li>
+                    <li>Extra Time - IDR 100K/30 minutes</li>
+                </ul>
+            </div>
+
+            <div class="terms">
+                <h3>Terms & Conditions</h3>
+                <ul>
+                    <li>All packages are inclusive of mentioned services</li>
+                    <li>1 Photographer for 1 Client and family/friends photos</li>
+                    <li>Photo duration calculated from start of session, with 10-minute delay tolerance</li>
+                    <li>Free choice of photo locations</li>
+                    <li>Original file delivery H+1 after graduation</li>
+                    <li>Editing time estimate: 7 days after photo session</li>
+                    <li>All photos delivered via Google Drive (original and edited)</li>
+                    <li>Maximum 1 week download period from Google Drive</li>
+                    <li>Booking requires 100K deposit, balance due H+1 after payment</li>
+                    <li>Deposit cancelled if client cancellation occurs</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h3>Ready to Book Your Session?</h3>
+            <p>Contact us today to schedule your graduation photography session</p>
+            <div class="contact-buttons">
+                <a href="https://wa.me/6281511454832" class="contact-btn">WhatsApp</a>
+                <a href="mailto:chandraoka763@gmail.com" class="contact-btn">Email</a>
+                <a href="https://instagram.com/kasuall.graduate" class="contact-btn">Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling and animation effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate price cards on scroll
+            const priceCards = document.querySelectorAll('.price-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            priceCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Add click effect to contact buttons
+            const contactBtns = document.querySelectorAll('.contact-btn');
+            contactBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255,255,255,0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = e.offsetX + 'px';
+                    ripple.style.top = e.offsetY + 'px';
+                    ripple.style.width = ripple.style.height = '20px';
+                    ripple.style.marginLeft = ripple.style.marginTop = '-10px';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+
+        // Add CSS animation for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
